@@ -1,0 +1,64 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Team 10 X Archiver</title>
+<style>
+  body{font:14px system-ui,sans-serif;max-width:860px;margin:30px auto;padding:0 16px 70px;color:#1a1a1b}
+  h1{font-size:20px}
+  #status{margin:8px 0;font-weight:600}
+  .track{background:#000000;border-radius:6px;height:14px;overflow:hidden}
+  #bar{background:#f15900;height:100%;width:0;transition:width .3s}
+  #log{background:#111;color:#f15900;font:12px ui-monospace,monospace;padding:10px;height:320px;overflow:auto;white-space:pre-wrap;border-radius:6px;margin-top:14px}
+  .ctl{border:2px solid #f15900;border-radius:8px;margin:18px 0;padding:0 14px 14px;background:#fff}
+  .ctl>h2.ctlt{background:#f15900;color:#fff;margin:0 -14px 12px;padding:7px 14px;border-radius:5px 5px 0 0;font-size:15px}
+  #downloads button{margin:0 8px 8px 0;padding:9px 14px;background:#ff4500;color:#fff;border:0;border-radius:6px;cursor:pointer;font-size:14px}
+  #downloads button:disabled{background:#999;cursor:not-allowed}
+  #postCtl #exportRow{margin:16px 0 0}
+  #sumBox{margin-top:6px}
+  #sumText{background:#e6e6e6;color:#000;font:12px ui-monospace,monospace;padding:10px;white-space:pre-wrap;border-radius:6px;margin:0 0 8px;max-height:260px;overflow:auto}
+</style>
+<link rel="stylesheet" href="archive.css">
+</head>
+<body>
+  <h1>Team 10 X Archiver</h1>
+  <div id="status">Starting…</div>
+  <div class="track"><div id="bar"></div></div>
+  <button id="stopBtn" class="abtn alt" type="button" style="display:none;margin-top:10px">Stop loading replies (keep what has been collected)</button>
+  <div id="log"></div>
+  <button id="toggleLog" class="linkbtn" style="display:none">Show / hide log</button>
+
+  <div class="ctl" id="docCtl" style="display:none">
+    <h2 class="ctlt">Document Control</h2>
+    <div id="wdLine" style="display:none;margin:0 0 8px;font-weight:600"><span>Working Document</span>&nbsp;&nbsp;<span id="wdLineName"></span></div>
+    <button id="toggleSum" class="linkbtn" style="display:none">Show/Hide document content summary &amp; Document Options</button>
+    <div id="sumBox" style="display:none">
+      <pre id="sumText"></pre>
+      <button id="finalBtn" class="abtn">Create Final DOCX</button>
+    </div>
+  </div>
+
+  <div class="ctl" id="postCtl" style="display:none">
+    <h2 class="ctlt">Post Control</h2>
+    <div id="downloads">
+      <button id="dlDocx" disabled title="Download DOCX"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px" aria-hidden="true"><path d="M12 3v12M6.5 10.5 12 16l5.5-5.5M4 20h16"/></svg> DOCX</button>
+      <button id="dlTxt" disabled title="Download TXT"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px" aria-hidden="true"><path d="M12 3v12M6.5 10.5 12 16l5.5-5.5M4 20h16"/></svg> TXT</button>
+      <button id="dlPdf" disabled title="Download a one-page, ad-free PDF of the original X page"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px" aria-hidden="true"><path d="M12 3v12M6.5 10.5 12 16l5.5-5.5M4 20h16"/></svg> PDF (original page)</button>
+      <button id="dlThread" disabled title="PDF of the post and every captured reply, with your highlights"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px" aria-hidden="true"><path d="M12 3v12M6.5 10.5 12 16l5.5-5.5M4 20h16"/></svg> PDF (full thread)</button>
+      <button id="dlCopy" disabled>DOCX to Clipboard</button>
+      <button id="dlAdd" disabled style="display:none">Add to Working Document</button>
+    </div>
+    <div id="view"></div>
+    <div id="exportRow" style="display:none"><button id="exportBtn">Export</button></div>
+  </div>
+
+  <div id="hlBar"><button id="hlAdd" type="button">Add Information Entry With Quote</button></div>
+  <div id="toast"></div>
+  <div id="dock">
+    <span id="dockInfo">Information: 0</span><span>|</span><span id="dockFlag">Flagged replies: 0</span>
+    <button id="dockAssess" type="button">Assessment ↓</button><button id="dockTop" type="button">Top ↑</button>
+  </div>
+
+  <script src="docx.js"></script>
+  <script src="pdf.js"></script>
+  <script src="store.js"></script>
+  <script src="workdoc.js"></script>
+  <script src="results.js"></script>
+</body></html>

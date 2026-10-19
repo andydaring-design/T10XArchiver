@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Team 10 X Archiver",
+  "version": "1.1.0",
+  "description": "Capture an X (Twitter) post and its replies, flag replies of interest, add information entries with quotes from the post or replies, build working documents, and export DOCX / TXT / a one-page ad-free PDF, or copy the DOCX content to the clipboard.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon64.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon64.png",
+      "128": "icons/icon128.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "Archive this X post"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "downloads",
+    "clipboardWrite",
+    "debugger"
+  ],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://*.x.com/*",
+    "https://twitter.com/*",
+    "https://*.twitter.com/*",
+    "https://pbs.twimg.com/*",
+    "https://video.twimg.com/*",
+    "https://abs.twimg.com/*"
+  ]
+}

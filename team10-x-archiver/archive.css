@@ -1,0 +1,138 @@
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+*{box-sizing:border-box}
+.hdrbox{border:1px solid #f15900;border-radius:6px;padding:8px 12px;margin:16px 0 12px;background:#fff;color:#000}
+.box{border:1px solid #f15900;border-radius:6px;padding:10px 12px;margin:10px 0;color:#000;overflow-wrap:anywhere}
+.post{background:#ffddc7}
+.comment{background:#fff0e5}
+.comment.sel{border-width:4px;background:#ff9d5c;padding:7px 9px}
+.comment.sel .body{font-weight:700}
+.cwrap{display:flex;gap:10px;align-items:flex-start}
+.cbody{flex:1;min-width:0}
+.name{font-weight:700}
+.name a,.meta a{color:#7a2d00}
+.meta{font-size:12px;color:#333;margin:2px 0}
+.body{white-space:pre-wrap;margin:6px 0}
+.media img{max-width:100%;max-height:420px;display:block;margin:6px 0;border:1px solid #f15900}
+h2.sec{font-size:16px;margin:22px 0 6px;color:#000}
+.reason{margin-top:8px;display:none}
+.reason label{display:block;font-size:12px;font-weight:600;margin-bottom:3px}
+textarea,input[type=text]{
+  width:100%;background:#e6e6e6;color:#000;border:1px solid #555;border-radius:4px;
+  padding:6px;font:13px system-ui,sans-serif;font-weight:400;resize:vertical
+}
+.field{margin:12px 0}
+.field label{display:block;font-weight:700;margin-bottom:4px}
+.field .hint{font-weight:400;font-size:12px;color:#555}
+.printval{white-space:pre-wrap;background:#e6e6e6;border:1px solid #555;border-radius:4px;padding:6px;color:#000;min-height:1.6em}
+.err{color:#b00020;font-weight:600;margin-top:4px}
+#exportRow{margin:22px 0 40px}
+#exportBtn{padding:11px 22px;background:#f15900;color:#fff;border:0;border-radius:6px;font-size:15px;cursor:pointer}
+#exportBtn:disabled{background:#999}
+.linkbtn{margin-top:6px;background:none;border:0;color:#f15900;cursor:pointer;text-decoration:underline;font-size:12px;padding:0}
+
+input[type=checkbox]{
+  -webkit-appearance:none;appearance:none;
+  width:16px;height:16px;margin:0;flex:none;
+  background:#333;border:1px solid #555;border-radius:3px;
+  position:relative;cursor:pointer
+}
+input[type=checkbox]:checked{background:#ff4500;border-color:#ff4500}
+input[type=checkbox]:checked::after{
+  content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)
+}
+input[type=checkbox]:disabled{opacity:1;cursor:default}
+
+body.print{font:13px system-ui,sans-serif;color:#000;margin:0;padding:0}
+@page{margin:14mm}
+@media print{.box{break-inside:avoid}.post{break-inside:auto}}
+
+/* ---- review-page controls (shared with the News Article Extractor) ---- */
+.artbody{background:#fff;border:1px solid #f15900;border-radius:4px;padding:10px 12px;max-height:560px;overflow:auto;user-select:text;line-height:1.5}
+.artbody .ap{margin:0 0 10px;white-space:normal}
+.artbody .ah{font-weight:700;margin:14px 0 6px}
+.artbody .ali{position:relative;padding-left:20px;margin:0 0 6px}
+.artbody .ali::before{content:"\2022";position:absolute;left:6px}
+.artbody .aq{border-left:3px solid #f15900;padding-left:10px;margin:0 0 10px;font-style:italic}
+.actionrow{margin:10px 0 4px}
+.abtn{padding:9px 16px;background:#f15900;color:#fff;border:0;border-radius:6px;font-size:14px;cursor:pointer;margin-right:8px}
+.abtn:hover{background:#ff9252}
+.abtn.alt{background:#fff;color:#f15900;border:1px solid #f15900}
+.box.entry{position:relative;margin-top:16px;padding-left:16px}
+.xbtn{position:absolute;top:-9px;left:-9px;width:22px;height:22px;padding:0;border:0;border-radius:50%;background:#f15900;color:#fff;font-size:15px;line-height:22px;cursor:pointer}
+.xbtn:hover{background:#ff9252}
+.quoteval{margin:8px 0 0 22px;font-style:italic;border-left:3px solid #f15900;max-height:160px;overflow:auto}
+.ovl{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:99}
+.mdl{background:#fff;border:2px solid #f15900;border-radius:8px;padding:16px;width:min(560px,92vw);color:#000}
+.mdl h3{margin:0 0 8px;font-size:16px}
+.mdl label{display:block;font-weight:700;margin:10px 0 4px}
+.mbtns{margin-top:12px;text-align:right}
+.media .meta a{word-break:break-all}
+.media .ph{max-width:100%;max-height:420px}
+
+/* ---- working document wizard ---- */
+.mdl.wide{width:min(1100px,96vw);max-height:92vh;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:56vh;min-height:0}
+.colw{display:flex;flex-direction:column;min-height:0;gap:4px}
+.pane{border:1px solid #f15900;border-radius:6px;background:#fff0e5;overflow:auto;padding:8px;flex:1;min-height:0}
+.pt{display:flex;gap:8px;align-items:flex-start;background:#fff;border:1px solid #f15900;border-radius:4px;padding:6px 8px;margin:7px 0;cursor:grab}
+.pt.ib{box-shadow:0 -4px 0 #ff4500}
+.pt.ia,.gh.ia{box-shadow:0 4px 0 #ff4500}
+.dend{box-shadow:inset 0 -5px 0 #ff4500}
+.ptx{flex:1;white-space:pre-wrap;overflow-wrap:anywhere}
+.ptq{font-style:italic;font-size:12px;color:#444;margin-top:3px}
+.grp{border:2px solid #f15900;border-radius:6px;background:#ffddc7;padding:6px;margin:10px 0}
+.gh{display:flex;align-items:center;gap:8px;font-weight:700;padding:4px}
+.gh .gn{flex:1;overflow-wrap:anywhere}
+.gbtn{border:0;border-radius:4px;background:#f15900;color:#fff;cursor:pointer;padding:2px 9px;font-size:12px}
+.gbtn:hover{background:#ff9252}
+.brow{display:flex;gap:8px;align-items:center;margin-top:6px}
+.brow input[type=text]{flex:1}
+.brow .abtn{margin-right:0;white-space:nowrap}
+
+/* ---- remove-paragraph control in the article box ---- */
+.artbody [data-b]{position:relative;padding-right:30px}
+.rmv{position:absolute;right:0;top:0;width:20px;height:20px;padding:0;border:0;border-radius:50%;background:#f15900;cursor:pointer;opacity:0;-webkit-user-select:none;user-select:none}
+.rmv::before{content:"\00D7";color:#fff;font-size:15px;line-height:20px}
+[data-b]:hover>.rmv,.rmv:focus{opacity:1}
+
+/* ---- image grid (3 columns) ---- */
+.imggrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+.imggrid .box{margin:0;padding:8px}
+.imggrid .comment.sel{padding:5px}
+.imggrid .cwrap{gap:8px}
+.imggrid .media img{width:100%;max-height:170px;object-fit:contain;background:#fff;margin:4px 0}
+.imggrid .meta{font-size:11px}
+.imggrid textarea{font-size:12px}
+
+/* ---- highlights that became information entries ---- */
+mark.hl{background:#ffe066;color:inherit;padding:0;border-radius:0}
+#view mark.hl{cursor:pointer}
+mark.hl.flash,.box.entry.flash{outline:3px solid #f15900;outline-offset:1px}
+.body[data-hl],.name [data-hl]{user-select:text}
+.srcline{font-size:12px;color:#333;margin:6px 0 0 22px}
+.srcline a{color:#7a2d00}
+
+/* ---- selectable media boxes ---- */
+.mbox{border:2px solid #f15900;border-radius:6px;padding:6px 8px;margin:8px 0;background:#fff}
+.mbox img{cursor:pointer}
+.mbox.off{border-style:dashed;border-color:#999;background:#f2f2f2}
+.mbox.off img{opacity:.35}
+.pickrow{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;cursor:pointer;color:#000}
+.mbox.off .pickrow{color:#666}
+.imggrid .mbox{margin:0}
+.tip{background:#fff;border:1px solid #f15900;border-left-width:5px;border-radius:6px;padding:8px 12px;margin:10px 0;font-size:13px;color:#000}
+
+/* ---- floating highlight toolbar, toast, dock (review page only) ---- */
+#hlBar{position:absolute;z-index:50;display:none;background:#000;padding:6px;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+#hlBar button{background:#f15900;color:#fff;border:0;border-radius:4px;padding:6px 10px;font-size:12px;cursor:pointer;white-space:nowrap}
+#hlBar button:hover{background:#ff9252}
+#toast{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);background:#000;color:#f15900;padding:8px 14px;border-radius:6px;font-size:13px;display:none;z-index:120}
+#dock{position:fixed;right:16px;bottom:16px;background:#000;color:#f15900;border-radius:8px;padding:8px 10px;display:none;gap:8px;align-items:center;font-size:12px;z-index:60;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+#dock button{background:#f15900;color:#fff;border:0;border-radius:4px;padding:5px 9px;cursor:pointer;font-size:12px}
+.mdl .chk{display:flex;align-items:center;gap:8px;font-weight:400;margin:10px 0 0;cursor:pointer}
+@media print{.box.entry{break-inside:avoid}}
+
+/* ---- X: quoted posts ---- */
+.quoted{border:1px dashed #f15900;border-radius:6px;background:#fff;padding:6px 10px;margin:8px 0}
+.quoted .body{margin:4px 0 0}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Team 10 X Archiver</title>
+<style>
+  html,body{background:#000;overflow-x:hidden}
+  body{font:13px system-ui,sans-serif;width:380px;margin:0;padding:14px;color:#f15900}
+  h1{font-size:15px;color:#f15900;margin:0 0 10px}
+  label{display:block;margin:6px 0}
+  input[type=text],select{
+    width:100%;box-sizing:border-box;padding:6px;margin-top:3px;
+    background:#1a1a1a;color:#e8e8e8;border:1px solid #333;border-radius:4px
+  }
+  input[type=text]:focus,select:focus{outline:none;border-color:#f15900}
+
+  /* custom checkboxes: dark gray unchecked, orange checked */
+  input[type=checkbox]{
+    -webkit-appearance:none;appearance:none;
+    width:16px;height:16px;margin:0;flex:none;
+    background:#333;border:1px solid #555;border-radius:3px;
+    position:relative;cursor:pointer
+  }
+  input[type=checkbox]:checked{background:#ff4500;border-color:#ff4500}
+  input[type=checkbox]:checked::after{
+    content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)
+  }
+
+  button{width:100%;margin-top:12px;padding:9px;background:#f15900;color:#ffffff;border:0;border-radius:6px;font-size:14px;cursor:pointer}
+  button:hover{background:#ff9252}
+  button:disabled{background:#444;color:#999;cursor:not-allowed}
+  button.alt{background:transparent;color:#f15900;border:1px solid #f15900;margin-top:8px}
+  button.alt:hover{background:#2a1100}
+  #err{color:#f15900;margin-top:8px}
+  small{color:#ff9252;display:block;margin-top:6px}
+  .chk{display:flex;align-items:center;gap:8px;cursor:pointer}
+  .sep{border-top:1px solid #333;margin:10px 0 4px}
+  .sub{margin-left:24px}
+  select:disabled{opacity:.45}
+
+  #pmeta{font-size:12px;color:#ff9252;margin:2px 0 4px;min-height:16px}
+  #preview{
+    background:#1a1a1a;color:#e8e8e8;border:1px solid #333;border-radius:4px;
+    height:190px;overflow:auto;padding:8px;font-size:12px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere
+  }
+  #preview .h{font-weight:700;color:#fff}
+  #selhint{display:none;color:#fff;background:#7a2d00;border-radius:4px;padding:5px 8px;margin:6px 0 0;font-size:12px}
+  .wd{margin:6px 0}
+  .row{display:flex;gap:8px}
+  .row button{flex:1;width:auto;margin-top:6px;padding:8px 4px;font-size:13px}
+  .ovl{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9;padding:14px;box-sizing:border-box;overflow:auto}
+  .mdl{border:1px solid #f15900;border-radius:6px;padding:12px;background:#0d0d0d}
+  .mdl h2{font-size:14px;margin:0 0 8px}
+  .mdl .row button{margin-top:12px}
+  .dlist{max-height:230px;overflow:auto;border:1px solid #333;border-radius:4px;background:#1a1a1a}
+  .dlist div{padding:7px 8px;color:#e8e8e8;cursor:pointer;border-bottom:1px solid #2a2a2a;overflow-wrap:anywhere}
+  .dlist div.sel{background:#f15900;color:#fff}
+  .hint{font-size:12px;color:#ff9252;margin:8px 0 0;line-height:1.4}
+
+  #wdName{color:#fff;overflow-wrap:anywhere}
+  .mlist{max-height:240px;overflow:auto;border:1px solid #333;border-radius:4px;background:#1a1a1a}
+  .mrow{display:flex;gap:8px;align-items:flex-start;padding:7px 8px;border-bottom:1px solid #2a2a2a;cursor:pointer;margin:0;color:#e8e8e8;overflow-wrap:anywhere}
+  .mrow small{display:block;color:#ff9252;margin:2px 0 0}
+  .mmsg{min-height:16px;margin-top:8px;color:#ff9252;white-space:pre-wrap}
+  .mdl .chk{margin:0 0 6px}
+
+  /* scroll bars: orange track + arrow buttons, black thumb + arrow icons */
+  ::-webkit-scrollbar{width:14px;height:14px;background:#f15900}
+  ::-webkit-scrollbar-track{background:#f15900}
+  ::-webkit-scrollbar-thumb{background:#000;border:2px solid #f15900;border-radius:0}
+  ::-webkit-scrollbar-thumb:hover{background:#2a2a2a}
+  ::-webkit-scrollbar-corner{background:#f15900}
+  ::-webkit-scrollbar-button:single-button{display:block;width:14px;height:14px;background-color:#f15900;background-repeat:no-repeat;background-position:center}
+  ::-webkit-scrollbar-button:single-button:hover{background-color:#ff9252}
+  ::-webkit-scrollbar-button:single-button:vertical:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M3 9.5 7 4.5 11 9.5z' fill='black'/%3E%3C/svg%3E")}
+  ::-webkit-scrollbar-button:single-button:vertical:increment{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M3 4.5 7 9.5 11 4.5z' fill='black'/%3E%3C/svg%3E")}
+  ::-webkit-scrollbar-button:single-button:horizontal:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M9.5 3 4.5 7 9.5 11z' fill='black'/%3E%3C/svg%3E")}
+  ::-webkit-scrollbar-button:single-button:horizontal:increment{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M4.5 3 9.5 7 4.5 11z' fill='black'/%3E%3C/svg%3E")}
+</style></head>
+<body>
+  <h1>Team 10 X Archiver</h1>
+
+  <label for="name">Team Member
+    <input type="text" id="name" placeholder="Enter your name" autocomplete="off">
+  </label>
+  <label class="chk"><input type="checkbox" id="remember"> Remember my name</label>
+
+  <div class="sep"></div>
+
+  <div class="wd">Working Document</div>
+  <div class="wd" id="wdName">No Working Document</div>
+  <div class="row">
+    <button id="newDoc" class="alt">New Doc</button>
+    <button id="loadDoc" class="alt">Load Doc</button>
+    <button id="manageDoc" class="alt">Manage Docs</button>
+  </div>
+
+  <div class="sep"></div>
+
+  <label for="url">X post URL
+    <input type="text" id="url" placeholder="https://x.com/username/status/..." autocomplete="off">
+  </label>
+  <label for="maxReplies">Maximum replies to load
+    <select id="maxReplies">
+      <option value="200">200</option><option value="500">500</option>
+      <option value="1000" selected>1,000</option><option value="2000">2,000</option>
+      <option value="5000">All (up to 5,000 – can take a long time)</option>
+    </select>
+  </label>
+  <p class="hint">You must be logged in to X in this browser to see replies.</p>
+
+  <div class="sep"></div>
+
+  <label class="chk"><input type="checkbox" id="optDocx" checked> Export Docx</label>
+  <label class="chk"><input type="checkbox" id="optPdf" checked> Export PDF of original X page (one long page, ads removed)</label>
+  <label class="chk"><input type="checkbox" id="optThread"> Export PDF of full captured thread (every reply)</label>
+  <label for="pdfLayout" class="sub">Thread PDF layout
+    <select id="pdfLayout">
+      <option value="long">Single long page</option>
+      <option value="pages">A4 pages</option>
+    </select>
+  </label>
+  <label class="chk"><input type="checkbox" id="optTxt"> Export text only</label>
+
+  <button id="extract">Start Capturing Post/Replies</button>
+  <div id="err"></div>
+  <small>Opens a results tab; keep it open until it finishes. The X tab comes to the front while the replies are loaded (and while the original-page PDF is captured) – leave it alone until the results tab returns. If the post is not already open, it is opened in a new tab and closed again afterwards.</small>
+  <script src="store.js"></script>
+  <script src="popup.js"></script>
+</body></html>
